@@ -1,9 +1,12 @@
 import express from "express"
 import mongoose from "mongoose"
 import productRoute from "./routes/product.route.js"
+import dotenv from 'dotenv';
 
+dotenv.config();
 
 const app = express()
+const mongoURI = process.env.MONGODB_URI;
 
 // middleware
 app.use(express.json())
@@ -16,7 +19,7 @@ app.use("/api/products", productRoute)
 
 
 
-mongoose.connect("mongodb+srv://pathakaakash8900:20021902@nodedb.xzv6i.mongodb.net/node-Api?retryWrites=true&w=majority&appName=nodeDb")
+mongoose.connect(mongoURI)
 .then(() => {
     console.log("database connected")
     app.listen(3000, () => {
